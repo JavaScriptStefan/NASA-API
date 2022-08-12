@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../../../app');
+const planetsMongo = require('../../../models/planets.mongo');
 const { connectToMongo, disconnectFromMongo } = require('../../../services/mongo');
 
 describe("/v1/Launches tests", () => {
@@ -37,6 +38,11 @@ describe("/v1/Launches tests", () => {
             "target" : "Earth",
             "launchDate" : "...",
         };
+
+        beforeAll(async () => {
+            const newPlanet = new planetsMongo({ keplerName: "Earth" });
+            await newPlanet.save();
+        });
     
         test("It should respond with 201", async () => {
             const response = await request(app).post("/v1/launches").send(requestBody).expect(201);

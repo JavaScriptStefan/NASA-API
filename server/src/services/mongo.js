@@ -1,3 +1,4 @@
+require("dotenv").config();
 var mongoose = require('mongoose');
 
 mongoose.connection.once("open", () => {
@@ -9,6 +10,7 @@ mongoose.connection.on("error", (afterInitialConnectionError) => {
 
 async function connectToMongo() {
     try{
+        // console.log(process.env.MONGO_URI);
         return await mongoose.connect(process.env.MONGO_URI);
     }catch(initialConnectionError){
         console.log(`Mongoose (initialConnectionError) error: ${initialConnectionError}`);
