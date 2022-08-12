@@ -1,0 +1,64 @@
+GET http://localhost:8000/v1/launches?page=2&limit=2 HTTP/1.1
+
+###
+
+POST http://localhost:8000/v1/launches HTTP/1.1
+content-type: application/json
+
+{
+    "mission" : "Kepler Exploration B",
+    "rocket" : "Explorer IS7",
+    "launchDate" : "January 11, 2039",
+    "target" : "Mars"
+}
+
+
+###
+
+DELETE http://localhost:8000/v1/launches/102 HTTP/1.1
+
+
+###
+POST http://localhost:8000/v1/planets HTTP/1.1
+content-type: application/json
+
+{
+    "planet": {
+        "keplerName": "Saturn",
+        "isHabitable": true
+    }
+}
+
+
+###
+GET http://localhost:8000/v1/planets HTTP/1.1
+
+
+###
+GET https://api.spacexdata.com/v4/launches/latest 
+
+
+###
+POST https://api.spacexdata.com/v4/launches/query
+content-type: application/json
+
+{
+  "query": {},
+  "options": {
+     "pagination": false,
+    "populate": [
+      {
+      "path": "rocket",
+      "select": {
+        "name": 1
+      }
+    },
+    {
+      "path": "payloads",
+      "select": {
+        "customers": 1
+      }
+    }
+    ]
+  }
+}
